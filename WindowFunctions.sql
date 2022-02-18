@@ -40,7 +40,37 @@ select '1009', '2017-04-09', 'LG', 'Chennai', 1000
 union all
 select '1010', '2017-04-10', 'SL', 'Delhi', 500;
 
-select city, sum(order_amount) as total_order_amount from orders group by city order by city;
+select city, sum(order_amount) total_order_amount from orders group by city;
+
+select order_id, order_date, customer_name, city, order_amount, sum(order_amount) over(partition by city) as grand_total from orders;
+
+select order_id, order_date, customer_name, city, order_amount, avg(order_amount) over(partition by city, month(order_date)) as average_order_amount from orders;
+
+select order_id, order_date, customer_name, city, order_amount, min(order_amount) over(partition by city) as minimum_order_amount from orders;
+
+select order_id, order_date, customer_name, city, order_amount, max(order_amount) over (partition by city) as maximum_order_amount from orders;
+
+select city, count(distinct customer_name) number_of_customers from orders group by city;
+
+select order_id, order_date, customer_name, city, order_amount, count(order_id) over (partition by city) as total_orders from orders;
+
+select order_id, order_date, customer_name, city, order_amount, count(distinct customer_name) over(partition by city) as number_of_customers from orders;
+
+select order_id, order_date, customer_name, city, rank() over (order by order_amount desc) rank from orders;
+
+select order_id, order_date, customer_name, city, order_amount, dense_rank() over(order by order_amount desc) rank from orders;
+
+select order_id, order_date, customer_name, city, order_amount, row_number() over(order by order_id) row_number from orders;
+
+select order_id, order_date, customer_name, city, order_amount, row_number() over(partition by city order by order_amount desc) row_number from orders;
+
+select order_id, order_date, customer_name, city, order_amount, ntile(4) over(order by order_amount) row_number from orders;
+
+select order_id, customer_name, city, order_amount, order_date, lag(order_Date,1) over(order by order_Date) prev_order_Date from orders;
+
+select order_id, customer_name, city, order_amount, order_date, lead(order_date, 1) over(order by order_date) next_order_Date from orders;
+
+select order_id, order_Date, customer_name, city, order_amount, first_value(order_Date) over(partition by city order by city) first_order_Date, last_value(order_date) over(partition by city order by city) last_order_date from orders;
 
 
 
