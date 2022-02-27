@@ -1,0 +1,18 @@
+RK:
+    name: 'RK'
+    birthyear: 1959
+    sex: 'male'
+    
+AL:
+    name: 'AL'
+    birthyear: 1960
+    sex: 'female'
+    start_year: 2020
+    pet: ['Candy', 'owl']
+    
+PS:
+    name: 'PS'
+    birthyear: 2008
+    sex: 'female'
+    start_year: 2020
+    pet: ['Marshmallow', 'cat']
