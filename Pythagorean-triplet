@@ -1,0 +1,10 @@
+'''
+Given an array of integers, determine whether it contains a Pythagorean triplet. Recall that a Pythogorean triplet (a, b, c) is defined by the equation a2+ b2= c2.
+'''
+
+arr = [4,3,5,7,6]
+from itertools import combinations
+for l in combinations(arr,3):
+    l = sorted(l)
+    if l[2]^2 == l[0]^2+l[1]^2:
+        print(l)
