@@ -1,0 +1,165 @@
+MongoDB Commands for databases
+
+View all databases
+show dbs
+
+Create a new or switch databases
+use dbname
+
+View current Database
+db
+
+Delete Database
+db.dropDatabase()
+
+show dbs
+use raviBlog
+
+db
+
+MongoDB Commands for collections
+
+show collections
+
+create a collection named 'comments'
+db.createCollection('comments')
+
+show collections
+
+Drop a collection named content
+
+db.content.drop()
+
+show collections
+
+MongoDB Commands for Rows
+
+Insert one row
+
+db.comments.insert({
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 5
+})
+
+Insert many rows
+
+db.comments.insertMany([{
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 5
+},
+{
+'name': 'Rohan',
+'lang': 'Python',
+'member_since': 3
+},
+{
+'name': 'Lovish',
+'lang': 'Java',
+'member_since': 4
+}]
+)
+
+Show all Rows in a Collection (Prettified)
+db.comments.Find()
+db.comments.Find().pretty()
+
+db.comments.insert({
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 5,
+'date': new Date()
+})
+
+Search in a MongoDb Database
+
+db.comments.find({lang:'Python'})
+
+db.comments.find({lang:'Python', 'name': 'Rohan'})
+
+db.comments.find().pretty().limit(2)
+
+db.comments.find().pretty().limit(109)
+
+Limit the number of rows in output
+
+Count the number of rows in the output
+
+db.comments.find().pretty().count()
+
+db.comments.find().pretty().limit(2).count()
+
+db.comments.find(name: 'Harry').pretty().count()
+
+db.comments.find(name: 'Rohan').pretty().count()
+
+db.comments.find().sort({member_since:1}).pretty()
+
+db.comments.find().sort({member_since:-1}).pretty()
+
+db.comments.findOne({name:'Harry'})
+
+Update a row
+
+db.comments.update({name:'Harry'},
+{
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 51
+}
+)
+
+db.comments.update({name:'Harry2'},
+{
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 51
+}
+)
+
+db.comments.find()
+
+db.comments.update({name:'Harry2'},
+{
+'name': 'Harry',
+'lang': 'Javascript',
+'member_since': 51
+}, 
+{upsert: true}
+)
+
+MongoDB Increment Operator
+
+db.comments.find()
+db.comments.update({'name': 'Rohan'},
+$inc:{
+ member_since: 2
+})
+
+MongoDB Rename Operator
+
+db.comments.find()
+db.comments.update({'name': 'Rohan'},
+$rename:{
+ member_since: 'member'
+})
+db.comments.find()
+
+Delete Row
+
+db.comments.remove({'name':'Harry'})
+
+Less than
+
+db.comments.find({member_since: {$lt: 90}})
+
+db.comments.find({member_since: {$lt: 34}})
+
+Greater than
+
+db.comments.find({member_since: {$gt: 90}})
+
+show dbs
+
+ 
