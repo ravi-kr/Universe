@@ -59,4 +59,48 @@ df_json = sparkdriver.read.format('json').load('D:\\Users\\restapi')
 df_json.show(10)
 df_json.printSchema()
 
-Lecture - 9
+f1 = sparkdriver.sql('show functions')
+print(type(f1))
+print(f1.count())
+f1.collect()
+f1.show(296)
+sparkdriver.sql('describe function aggregate').collect()
+
+df_mysql.show(5)
+df1 = df_mysql.withColumn("day", current_date())
+df1 = df_mysql.withColumn("day", date_add(current_date(),1))
+df1.write.partitionBy('day').mode('append').saveAsTable('calldatatable')
+df.show()
+print('success')
+
+spark.sql('show databases').count()
+spark.sql('select * from default.accountdevice limit 10').show()
+
+df_hive1 = spark.read.table('default.accountdevice')
+df_hive1
+df_hive1.printSchema()
+
+df_hive1.show(5)
+
+df_hive2 = spark.sql('select * from default.accountdevice')
+df_hive2
+
+df_hive2 = spark.sql('select * from default.accountdevice where device_id = 29')
+df_hive2.count()
+df_hive1.count()
+
+#domain specific language
+df_hive1 = spark.read.table('default.accountdevice').filter('device_id = 29')
+
+df_hive1.show(5)
+
+df3 = df_hive.withColumn('newc', current_timestamp())
+
+df3.show(5)
+
+df3.write.format('csv').saveAsTable('default.testsparkdf2')
+
+df4 = spark.read.format('csv').load('hdfs://172.16.38.131:8020//user/part-0000-333f.csv')
+
+df4.show
+
