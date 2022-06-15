@@ -157,3 +157,12 @@ myfunc = udf(f2,IntegerType())
 df3.select('Age', myfunc('Age')).show(5)
 
 f2.printSchema()
+
+
+spark-submit
+
+Driver Memory
+Executor Memory
+Driver Core
+Executor Core
+
