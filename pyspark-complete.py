@@ -1,6 +1,8 @@
 from pyspark.sql import SparkSession
 from pyspark.sql.types import *
 from pyspark.sql.functions import *
+from pyspark.sql.functions import sqrt
+from pyspark.sql.types import IntegerType
 #sparkdriver = SparkSession.builder.master('local').appName('demoApp').getOrCreate()
 sparkdriver = SparkSession.builder.master('local').appName('demoApp').config('spark.jars.packages', 'mysql:mysql-connector-java:5.1.44').getOrCreate()
 sparkdriver
@@ -59,6 +61,8 @@ df_json = sparkdriver.read.format('json').load('D:\\Users\\restapi')
 df_json.show(10)
 df_json.printSchema()
 
+Lecture - 9
+
 f1 = sparkdriver.sql('show functions')
 print(type(f1))
 print(f1.count())
@@ -104,3 +108,52 @@ df4 = spark.read.format('csv').load('hdfs://172.16.38.131:8020//user/part-0000-3
 
 df4.show
 
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master('local').appName('sparkapp').getOrCreate()
+spark
+
+r1 = spark.sparkContext.textFile('C:\\Users\\sample.txt')
+print(r1.collect())
+print(r1.count())
+
+r2 = r1.map(lambda x:(str)(x)).map(lambda x:x.split(' '))
+print(r2.collect())
+
+r3 = r2.map(lambda x:len(x))
+columnsize = r3.collect()
+print(columnsize)
+
+def fillmissing(x):
+    result = []
+    for i in range(columnsize):
+        try:
+            result.append(x[i])
+        except:
+            result.append('nodata')
+    return result
+    
+print(fillmissing(['spark','spark']))
+
+resultdata = r2.map(lambda x: fillmissing(x))
+print(resultdata.collect(x))
+df1 = resultdata.toDF()
+df1.show()
+
+df2 = spark.read.format('csv').option('inferSchema', True).option('header', True).load('C:\\Users\\sample.txt')
+
+df2.show(5)
+
+df2.select('Age', sqrt('Age')).show(5)
+
+df3 = df2.na.drop()
+df3.show()
+def f2(x):
+    return (x*x - x)/2
+    
+f2(20)
+
+spark.udf.register('myfunc', f2, IntegerType())
+myfunc = udf(f2,IntegerType())  
+df3.select('Age', myfunc('Age')).show(5)
+
+f2.printSchema()
