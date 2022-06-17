@@ -166,3 +166,23 @@ Executor Memory
 Driver Core
 Executor Core
 
+from pyspark.sql import SparkSession
+sparkdriver = SparkSession.builder.master('yarn').appName('demoApp').getOrCreate()
+
+spark-submit --help
+
+from pyspark.sql import SparkSession
+spark = SparkSession.builder.master('local').appName('demoApp').getOrCreate()
+spark
+
+rd1 = spark.sparkContext.textFile(C:\\Users\\sample.txt)
+print(rd1.collect())
+rd1.count()
+
+rd2 = rd1.map(lambda x:x.encode('utf-8'))
+print(rd2.collect())
+
+rd3 = rd2.flatMap(lambda x: x.split(' ')).map(lambda x:(x,1)).reduceByKey(lambda x,y:x+y)
+rd3.collect()
+
+CACHS >>> RAM >> DISK
