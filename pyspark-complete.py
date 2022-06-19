@@ -186,3 +186,5 @@ rd3 = rd2.flatMap(lambda x: x.split(' ')).map(lambda x:(x,1)).reduceByKey(lambda
 rd3.collect()
 
 CACHS >>> RAM >> DISK
+
+spark.conf.set('spark.sql.repl.eagerEval.enabled', True) 
