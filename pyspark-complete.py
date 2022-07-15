@@ -394,3 +394,19 @@ titanic.write.format("jdbc").\
               option("password", "test").\
               option("driver", "org.postgresql.Driver").\
               save()
+
+create table table1(pid INT, pname STRING, drug STRING, tot_amt INT) row format delimited fields terminated by ',' stored as textfile;
+
+load data local inpath '/home ubuntu/data_301.txt' into table table1;
+load data local inpath '/home ubuntu/data_301.txt' into table table1;
+
+show create table table1;
+
+create table table2(pid INT, pname STRING, drug STRING, tot_amt INT) row format delimited fields terminated by ',' stored as orc;
+
+insert overwrite table table2 select * from table1;
+
+show create table table2;
+
+select count(*) from table1 where tot_amt = 110;
+select count(*) from table2 where tot_amt = 110;
